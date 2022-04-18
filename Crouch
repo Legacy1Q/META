@@ -150,7 +150,17 @@ namespace StarterAssets
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+			if (_input.crouch)
+            {
+				MoveSpeed = CrouchSpeed;
 
+            }
+
+			else if (_input.crouch == false)
+            {
+				MoveSpeed = 4.0f;
+            }
+			
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -243,11 +253,23 @@ namespace StarterAssets
 
 		private void Crouching()
         {
-			if(_input.crouch)
-            {
-				transform.localScale = new Vector3(transform.localScale.x, CrouchedHeight, transform.localScale.z);
+			if (Grounded)
+			{
+				if (_input.crouch)
+				{
+					transform.localScale = new Vector3(transform.localScale.x, CrouchedHeight, transform.localScale.z);
+				}
+
+				else
+				{
+					if (_input.crouch == false)
+					{
+						transform.localScale = new Vector3(transform.localScale.x, _playerHeight, transform.localScale.z);
+					}
+				}
 			}
-        }
+
+		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
