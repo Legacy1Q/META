@@ -1,0 +1,45 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+public class ShootingAi : MonoBehaviour
+{
+    public NavMeshAgent agent;
+    public Transform player;
+    public LayerMask whatIsGround, whatIsPlayer;
+
+    //Patroling
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
+    //Attacking
+    public float sightRange, attackRange;
+    public bool playerInSightRange, PlayerInAttackRange;
+
+    private void Awake()
+    {
+        player = GameObject.Find("PlayerCapusule").transform;
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        PlayerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+    }
+
+    private void Patroling()
+    {
+
+    }
+
+    private void ChasePlayer()
+    {
+
+    }
+
+    private void AttackPlayer()
+    {
+
+    }
+}
